@@ -185,7 +185,7 @@ class ConfirmOverwriteView(discord.ui.View):
             content=self.success_message,
             view=None,
         )
-        await interaction.channel.sendo(f"{interaction.user.mention} has overwritten the participant list."
+        await interaction.channel.send(f"{interaction.user.mention} has overwritten the participant list."
         )
 
 class RegisterButton(discord.ui.View):
