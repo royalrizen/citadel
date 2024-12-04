@@ -209,7 +209,7 @@ class RegisterButton(discord.ui.View):
                 json.dump(user_list, file, indent=4)
 
         if user_id in user_list:
-            confirmation_view = ConfirmCancellationView(user_id, self.list_file)
+            confirmation_view = ConfirmCancellationView(user_id, self.list_file, self.bot)
             await interaction.response.send_message(
                 "You've already registered for the event. Do you wish to cancel it?",
                 view=confirmation_view,
@@ -233,9 +233,10 @@ class RegisterButton(discord.ui.View):
             )
 
 class ConfirmCancellationView(discord.ui.View):
-    def __init__(self, user_id, list_file):
+    def __init__(self, user_id, list_file, bot):
         super().__init__(timeout=None)
         self.user_id = user_id
+        self.bot = bot
         self.list_file = list_file
         with open('settings.yaml', 'r') as f:
             self.settings = yaml.safe_load(f)
