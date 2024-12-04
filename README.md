@@ -1,2 +1,1 @@
-# citadel
-citadel events
+## Official Events Bot of The Citadel
