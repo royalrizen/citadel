@@ -52,12 +52,11 @@ class Events(commands.Cog):
                 remainder -= 1
 
             formatted_groups = "\n\n".join(
-                [f"**Team {i+1}:**\n" + "\n".join(group) for i, group in enumerate(groups)]
+            [f"**Team {i+1}:**\n" + "\n".join([f"<@{user_id}>" for user_id in group]) for i, group in enumerate(groups)]
             )
 
             await interaction.response.send_message(
-                f"Participants divided into {teams} groups:\n\n{formatted_groups}",
-                ephemeral=True
+                f"Participants divided into {teams} groups:\n\n{formatted_groups}"
             )
         except FileNotFoundError:
             await interaction.response.send_message(
