@@ -224,7 +224,7 @@ class RegisterButton(discord.ui.View):
             participant_role = guild.get_role(self.settings['event_settings']['participant_role'])            
 
             await interaction.user.add_roles(participant_role)
-            embed = discord.Embed(description=f"{config.EVENT} {interaction.user.mention} has registered for the {title} event.", color=config.TRANSPARENT)
+            embed = discord.Embed(description=f"{config.EVENT} {interaction.user.mention} has registered for the event.", color=config.TRANSPARENT)
             channel = self.bot.get_channel(self.settings['event_settings']['registration_log'])
             await channel.send(embed=embed)
             
@@ -257,7 +257,7 @@ class ConfirmCancellationView(discord.ui.View):
             participant_role = guild.get_role(self.settings['event_settings']['participant_role'])
             
             await interaction.user.remove_roles(participant_role)
-            embed = discord.Embed(description=f":x: {interaction.user.mention} has cancelled registration for the {title} event.", color=0xFF0000)
+            embed = discord.Embed(description=f":x: {interaction.user.mention} has cancelled registration for the event.", color=0xFF0000)
             channel = self.bot.get_channel(self.settings['event_settings']['registration_log'])
             await channel.send(embed=embed)
         await interaction.response.edit_message(
