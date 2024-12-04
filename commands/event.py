@@ -55,9 +55,10 @@ class Events(commands.Cog):
             [f"**Team {i+1}:**\n" + "\n".join([f"<@{user_id}>" for user_id in group]) for i, group in enumerate(groups)]
             )
 
-            await interaction.response.send_message(
-                f"Participants divided into {teams} groups:\n\n{formatted_groups}"
-            )
+            embed = discord.Embed(description=formatted_groups)
+
+            await interaction.response.send_message(embed=embed)
+            
         except FileNotFoundError:
             await interaction.response.send_message(
                 "The participants list does not exist.", ephemeral=True
