@@ -194,8 +194,7 @@ class RegisterButton(discord.ui.View):
         super().__init__(timeout=None)
         self.bot = bot
         self.list_file = 'list.json'
-        self.participant_role = self.bot.get_guild(interaction.guild.id).get_role(self.settings['event_settings']['participant_role'])
-
+        
     @discord.ui.button(label="Register", style=discord.ButtonStyle.blurple, custom_id="_register")
     async def register_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
         user_id = str(interaction.user.id)
@@ -220,7 +219,10 @@ class RegisterButton(discord.ui.View):
             with open(self.list_file, 'w') as file:
                 json.dump(user_list, file, indent=4)
 
-            await interaction.user.add_roles(self.participant_role)
+            guild = interaction.guild
+            participant_role = guild.get_role(self.settings['event_settings']['participant_role'])            
+
+            await interaction.user.add_roles(participant_role)
             embed = discord.Embed(description=f"{config.EVENT} {interaction.user.mention} has registered for the {title} event.", color=config.TRANSPARENT)
             channel = self.bot.get_channel(self.settings['event_settings']['registration_log'])
             await channel.send(embed=embed)
@@ -235,8 +237,7 @@ class ConfirmCancellationView(discord.ui.View):
         super().__init__(timeout=None)
         self.user_id = user_id
         self.list_file = list_file
-        self.participant_role = self.bot.get_guild(interaction.guild.id).get_role(self.settings['event_settings']['participant_role'])
-
+        
     @discord.ui.button(label="Yes, cancel my registration", style=discord.ButtonStyle.danger)
     async def confirm_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         try:
@@ -250,7 +251,10 @@ class ConfirmCancellationView(discord.ui.View):
             with open(self.list_file, 'w') as file:
                 json.dump(user_list, file, indent=4)
 
-            await interaction.user.remove_roles(self.participant_role)
+            guild = interaction.guild
+            participant_role = guild.get_role(self.settings['event_settings']['participant_role'])
+            
+            await interaction.user.remove_roles(participant_role)
             embed = discord.Embed(description=f":x: {interaction.user.mention} has cancelled registration for the {title} event.", color=0xFF0000)
             channel = self.bot.get_channel(self.settings['event_settings']['registration_log'])
             await channel.send(embed=embed)
