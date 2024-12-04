@@ -188,12 +188,13 @@ class ConfirmOverwriteView(discord.ui.View):
         await interaction.channel.sendo(f"{interaction.user.mention} has overwritten the participant list."
         )
 
-
 class RegisterButton(discord.ui.View):
     def __init__(self, bot):
         super().__init__(timeout=None)
         self.bot = bot
         self.list_file = 'list.json'
+        with open('settings.yaml', 'r') as f:
+            self.settings = yaml.safe_load(f)
         
     @discord.ui.button(label="Register", style=discord.ButtonStyle.blurple, custom_id="_register")
     async def register_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -231,12 +232,13 @@ class RegisterButton(discord.ui.View):
                 "You have been successfully registered for the event.", ephemeral=True
             )
 
-
 class ConfirmCancellationView(discord.ui.View):
     def __init__(self, user_id, list_file):
         super().__init__(timeout=None)
         self.user_id = user_id
         self.list_file = list_file
+        with open('settings.yaml', 'r') as f:
+            self.settings = yaml.safe_load(f)
         
     @discord.ui.button(label="Yes, cancel my registration", style=discord.ButtonStyle.danger)
     async def confirm_button(self, interaction: discord.Interaction, button: discord.ui.Button):
