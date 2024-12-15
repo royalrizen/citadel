@@ -58,6 +58,7 @@ class Mafia(commands.Cog):
             "viewed_roles": set(),
             "phase": None,
             "votes": {},
+            "night_target": None,
             "channel_id": interaction.channel.id
         }
         self.games[guild_id] = game
