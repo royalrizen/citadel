@@ -30,7 +30,7 @@ class AntiRaid(commands.Cog):
 
         embed = discord.Embed(
             title="Mass Ban Confirmation",
-            description="\n".join([f"`{username}` ({user_id})" for user_id, username in matching_users]),
+            description="\n".join([f"`{username}`\n-# ➜ {user_id}" for user_id, username in matching_users]),
             color=config.SECONDARY_COLOR
         )
 
@@ -49,11 +49,11 @@ class AntiRaid(commands.Cog):
             reaction, user = await self.bot.wait_for("reaction_add", timeout=60.0, check=check)
             await confirmation_message.clear_reactions()
         except asyncio.TimeoutError:
-            await ctx.send("Confirmation timed out. No action taken.")
+            await ctx.send(f"{config.ERROR} Confirmation timed out. No action taken.")
             return
 
         if str(reaction.emoji) == config.ERROR:
-            await ctx.send("Mass ban canceled.")
+            await ctx.send(f"{config.ERROR} Mass ban canceled.")
             return
 
         banned_count = 0
@@ -62,11 +62,11 @@ class AntiRaid(commands.Cog):
                 await ctx.guild.ban(discord.Object(id=user_id), reason="Raid")
                 banned_count += 1
             except discord.Forbidden:
-                await ctx.send(f"Failed to ban user with ID `{user_id}` (missing permissions).")
+                await ctx.send(f"{config.ERROR} Failed to ban user with ID `{user_id}` (missing permissions).")
             except discord.HTTPException:
-                await ctx.send(f"Failed to ban user with ID `{user_id}` (HTTP error).")
+                await ctx.send(f"{config.ERROR} Failed to ban user with ID `{user_id}` (HTTP error).")
 
-        await ctx.send(f"Successfully banned **{banned_count}** users.")
+        await ctx.send(f"{config.SUCCESS} Successfully banned **{banned_count}** users.")
 
 async def setup(bot):
     await bot.add_cog(AntiRaid(bot))
