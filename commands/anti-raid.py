@@ -9,7 +9,7 @@ class AntiRaid(commands.Cog):
 
     @commands.command(name="massban", aliases=['mb'], usage="<message>", description="Mass bans all the users who sent a specific message. Use it during raids.")
     @commands.check(is_staff)
-    @commands.has_permissions(manage_server=True)
+    @commands.has_permissions(manage_guild=True)
     async def mass_ban(self, ctx, *, target_message: str):
         """Bans users who sent a certain message."""
         if not ctx.guild:
