@@ -30,7 +30,7 @@ class AntiRaid(commands.Cog):
 
         embed = discord.Embed(
             title="Mass Ban Confirmation",
-            description="\n".join([f"`{username}`\n-# ➜ {user_id}" for user_id, username in matching_users]),
+            description="\n".join([f"{username}\n-# ➜ {user_id}" for user_id, username in matching_users]),
             color=config.SECONDARY_COLOR
         )
 
