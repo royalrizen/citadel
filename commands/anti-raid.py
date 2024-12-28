@@ -18,7 +18,7 @@ class AntiRaid(commands.Cog):
 
         m = await ctx.send("🔎 Scanning messages... Please wait.")
         matching_users = set() 
-        async for message in ctx.channel.history(limit=None): 
+        async for message in ctx.channel.history(limit=100): 
             if message.content == target_message:
                 matching_users.add((message.author.id, str(message.author)))
 
