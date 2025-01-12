@@ -21,10 +21,7 @@ bot = commands.Bot(command_prefix=prefix, activity=custom_status, case_insensiti
 @bot.event
 async def on_ready():
     print(f"\nConnected to {bot.user}\n")
-    await load_extensions()    
-    await sync_commands()
-    activity = discord.Game(name="with Vegetable")
-    await bot.change_presence(activity=activity)
+    await load_extensions()
 
 async def load_extensions():
     for filename in os.listdir('./commands'):
@@ -34,10 +31,6 @@ async def load_extensions():
                 print(f"[+] {filename[:-3]}.py — online")
             except commands.ExtensionError as e:
                 print(f"[-] {filename[:-3]} — offline ({e})")
-
-async def sync_commands():
-    synced = await bot.tree.sync()
-    print(f"\nSynced {len(synced)} commands")
 
 class ReportButton(View):
     def __init__(self, bot, error_message, guild_id, user_id, username, command_name, original_message):
