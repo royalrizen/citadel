@@ -20,7 +20,7 @@ class Pinterest(commands.Cog):
             output_folder = self.output_folder
             proxies = self.proxies
             number_of_workers = self.number_of_workers
-            images_to_download = 9
+            images_to_download = 3
 
             details = scraper.scrape(
                 key=keyword,
