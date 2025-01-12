@@ -2,4 +2,5 @@ discord.py
 pyyaml
 flask
 python-gemini-api
-pinscrape
+requests
+beautifulsoup4 
