@@ -2,3 +2,4 @@ discord.py
 pyyaml
 flask
 python-gemini-api
+pinscrape
