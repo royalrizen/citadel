@@ -36,7 +36,7 @@ class Pinterest(commands.Cog):
             if image_urls:
                 batch_size = 10
                 for i in range(0, len(image_urls), batch_size):
-                    await ctx.send(f"🔎 **{keyword}**:", content="\n".join(image_urls[i:i + batch_size]))
+                    await ctx.send("\n".join(image_urls[i:i + batch_size]))
             else:
                 await ctx.send(f"No images found for **{keyword}**.")
             await m.delete()
