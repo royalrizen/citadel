@@ -20,11 +20,13 @@ class Pinterest(commands.Cog):
         if response.status_code != 200:
             return []
         soup = BeautifulSoup(response.content, 'html.parser')
-        link_tags = soup.find_all('link', href=True)
+        
+        link_tags = soup.find_all('link', {'as': 'image'})
+        
         img_urls = []
         for link in link_tags:
             href = link.get('href')
-            if href and (href.endswith('.jpg') or href.endswith('.jpeg') or href.endswith('.png')):
+            if href:
                 img_urls.append(href)
         return img_urls
 
@@ -36,7 +38,8 @@ class Pinterest(commands.Cog):
             if image_urls:
                 batch_size = 10
                 for i in range(0, len(image_urls), batch_size):
-                    await ctx.send("\n".join(image_urls[i:i + batch_size]))
+                    markdown_urls = [f"[image {i + 1}](<{url}>)" for i, url in enumerate(image_urls[i:i + batch_size])]
+                    await ctx.send("\n".join(markdown_urls))
             else:
                 await ctx.send(f"No images found for **{keyword}**.")
             await m.delete()
