@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-from pinscrape import scraper
 import os
+from pinscrape import scraper
 import config
 
 class Pinterest(commands.Cog):
@@ -17,13 +17,17 @@ class Pinterest(commands.Cog):
         m = await ctx.send("📌 Searching on **Pinterest**...")
 
         try:
+            output_folder = self.output_folder
+            proxies = self.proxies
+            number_of_workers = self.number_of_workers
             images_to_download = 9
+
             details = scraper.scrape(
-                keyword,
-                self.output_folder,
-                self.proxies,
-                self.number_of_workers,
-                images_to_download
+                key=keyword,
+                output_folder=output_folder,
+                proxies=proxies,
+                threads=number_of_workers,
+                max_images=images_to_download
             )
 
             if details["isDownloaded"]:
@@ -45,8 +49,10 @@ class Pinterest(commands.Cog):
                     full_path = os.path.join(self.output_folder, image_path)
                     if os.path.exists(full_path):
                         os.remove(full_path)
+
             else:
                 await ctx.send(f"No images found for **{keyword}**.")
+
         except Exception as e:
             await ctx.send(f"{config.ERROR} {e}")
 
