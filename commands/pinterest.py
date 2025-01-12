@@ -4,7 +4,7 @@ from pinscrape import scraper
 import os
 import config
 
-class PinScrape(commands.Cog):
+class Pinterest(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.output_folder = "cache" 
@@ -49,4 +49,4 @@ class PinScrape(commands.Cog):
             await ctx.send(f"{config.ERROR} {e}")
 
 async def setup(bot):
-    await bot.add_cog(PinScrape(bot))
+    await bot.add_cog(Pinterest(bot))
