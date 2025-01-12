@@ -14,8 +14,9 @@ class Pinterest(commands.Cog):
 
     @commands.command(name="pinterest", aliases=['pins'], usage="<keyword>", description="Search for images on Pinterest")
     async def pinterest(self, ctx, *, keyword: str):
-        await ctx.trigger_typing()
 
+        m = await ctx.send("📌 Searching on **Pinterest**")
+        
         try:
             images_to_download = 9
             details = scraper.scrape(
@@ -35,10 +36,12 @@ class Pinterest(commands.Cog):
                     if os.path.exists(full_path):
                         files.append(discord.File(full_path))
 
+                await m.delete()
+                
                 batch_size = 10
                 for i in range(0, len(files), batch_size):
                     await ctx.send(f"🔎 **{keyword}**:", files=files[i:i + batch_size])
-
+                
                 for image_path in image_paths:
                     full_path = os.path.join(self.output_folder, image_path)
                     if os.path.exists(full_path):
