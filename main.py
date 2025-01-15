@@ -9,17 +9,6 @@ import yaml
 import config
 from utils.staff import is_dev
 import web
-from discord.http import Route
-
-async def custom_request(http, method, route, **kwargs):
-    response = await original_request(http, method, route, **kwargs)
-    if response.status == 429:
-        retry_after = response.headers.get('Retry-After')
-        print(f"Rate limited. Retry after: {retry_after} seconds.")
-    return response
-
-original_request = Route.request
-Route.request = custom_request
 
 with open('settings.yaml', 'r') as file:
   settings = yaml.safe_load(file)        
