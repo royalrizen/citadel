@@ -15,8 +15,8 @@ with open('settings.yaml', 'r') as file:
   prefix  = settings['prefix']
   bug_reports_channel = settings['log_channels']['bug_reports']
         
-custom_status = discord.CustomActivity(name = "avengers assemble")
-bot = commands.Bot(command_prefix=prefix, activity=custom_status, case_insensitive=True, intents=discord.Intents.all())
+#custom_status = discord.CustomActivity(name = "avengers assemble")
+bot = commands.Bot(command_prefix=prefix, case_insensitive=True, intents=discord.Intents.all())
 
 @bot.event
 async def on_ready():
