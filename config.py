@@ -2,8 +2,6 @@ import os
 
 # ENVIRONMENT VARIABLES 
 TOKEN = os.environ['TOKEN']
-COOKIE = os.environ['COOKIE']
-
 # COLORS
 PRIMARY_COLOR = 0xff0000  # red
 SECONDARY_COLOR = 0xFFAC00 # gold 
